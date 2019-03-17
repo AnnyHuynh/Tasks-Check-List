@@ -1,0 +1,107 @@
+
+#delete-task{
+  width: 40px;
+  margin:0px;
+}
+
+body {  background-image: url(../images/todo-backgr4.jpeg);
+  /* background-image: fixed;   */
+  /* background-repeat: no-repeat; */
+  background-size: 1460px 1000px;  
+  font-family: 'Neuton', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;  
+  font-family: 'La Belle Aurore', cursive;    
+}
+
+.logoAndFont {
+  color: pink;
+  font-weight: bolder;
+  font-family: "xxx";
+  font-size: 40px;
+  text-decoration-style: none;
+}
+
+.btn{
+  font-size: 20px;
+  font-weight: bolder;
+  background-color: lightpink;
+  margin-top: 660px;
+}
+
+/* a {
+  color: inherit;
+  font-family: xxx;
+  font-size: inherit;
+  text-decoration: none;
+} */
+
+#navbar {
+  background: rgba(160, 42, 81, 0.616);
+  color: rgb(13, 26, 38);
+  position: fixed;
+  top: 0px;
+  height: 88px;
+  line-height: 60px;
+  width: 100vw;
+  z-index: 10;
+}
+
+#navbar li a {
+  color: pink;
+  display: block;
+  font-size: 14px;
+  font-weight: bolder;
+  height: 52px;
+  letter-spacing: 1px;
+  margin: 0px 20px;
+  /* bottom: 14px;
+  left: 34px; */
+  padding: 14px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+}
+
+#todo-container{
+  overflow-x: scroll;
+  overflow-y: scroll;
+  height: 1000px;
+  width: 1800px;
+  font-size: 18px;
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 4px;
+  padding: 20px;
+  margin-top: 140px;
+  background-color: rgba(240, 233, 233, 0.842);
+};  
+
+.btn {
+  color: black;
+  font-size: 24px;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 800px;
+  padding: 40px;
+  text-decoration: none;
+  background-color: pink;
+  border: hotpink;
+}
+
+.btn .active {
+  background-color: hotpink;
+  color: white;
+}
+
+.btn:hover:not(.active) {background-color: hotpink;}
+
+/**********Calendar*********************/
+/* datepicker css */
+
+
+
+
+
+
