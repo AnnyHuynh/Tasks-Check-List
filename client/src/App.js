@@ -1,46 +1,56 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
-import Navbar from './components/layout/Navbar';
-import Home from './components/pages/Home';
-import Login from './components/auth/Login';
-import Task from './components/pages/Task';
 import './App.css';
-
-function onAuthRequired({history}){
-  history.push('/login');
-}
-
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import fire from './config/Fire';
+import Task from './components/Task';
+import Login from './components/Login';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import Error from './components/Error';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+    };
+    this.authListener = this.authListener.bind(this);
+  }
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged((user) => {
+      //console.log(user);
+      if (user) {
+        this.setState({ user });
+       // localStorage.setItem('user', user.uid);
+      } else {
+        this.setState({ user: null });
+       // localStorage.removeItem('user');
+      }
+    });
+  }
+
   render() {
     return (
-      <Router>
-        <Security issuer='https://dev-568198.okta.com/oauth2/default'
-                  client_id='0oad2f5w2NKepAQAK356'
-                  redirect_uri={window.location.origin + '/implicit/callback'}
-                  onAuthRequired={onAuthRequired}>
-      <div className="App">
+    <BrowserRouter className="App">
+     <Navbar />
+     <Switch>
+     <Route path="/" component={Home} exact/> 
+         <div>{this.state.user ? ( <Task/>) : (<Route path="/login" component={Login} exact/>)}</div>
 
-        <Navbar />
+     <Route component={Error}/>
+     </Switch>  
+      
+     </BrowserRouter>
 
-        <div className="container">
-        <Route path="/" exact={true} component={Home} />
-        <SecureRoute path='/task' exact={true} Component={Task} />
-        <Route
-                path="/login"
-                render={() => (
-                  <Login baseUrl="https://dev-568198.okta.com" />
-                )}
-        />
-        <Route path='/implicit/callback' component={ImplicitCallback} />
-        </div>
-
-      </div>
-       </Security>
-      </Router>
-    );
-  }
+     )
 }
+}
+   export default App;
 
-export default App;
+ 
+
