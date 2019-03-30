@@ -1,54 +1,84 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require("express");
+const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
+// require('./models/db');
+const Task = require('./models/task.model');
+const mongoose = require("mongoose");
+const taskRoutes = express.Router();
+// const routes = require("./routes");
+// const taskController = require('./controllers/taskController');
+const PORT = process.env.PORT || 3002;
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+app.use(cors());
 
-var app = express();
+// app.use('/task', taskController);
+app.use(bodyParser.json());
 
-var db = require("./models");
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/api/task', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-var port = process.env.PORT || "3002";
-
-db.sequelize.sync({}).then(function(){
-  app.listen(port, function(){
-
-    console.log("server.listening on port");
-    });
+mongoose.connect('mongodb://127.0.0.1:27017/TaskDB', { useNewUrlParser: true });
+const connection = mongoose.connection;
+connection.once('open', function() {
+    console.log("MongoDB database connection established successfully");
 })
 
 
-module.exports = app;
+taskRoutes.route('/').get(function(req, res) {
+  Task.find({})
+    .then((results) => {
+        // console.log('here', results)
+        res.send(results);
+    })
+});
 
+taskRoutes.route('/:id').get(function(req, res) {
+  let id = req.params.id;
+  Task.findById(id, function(err, task) {
+      res.json(task);
+  });
+});
+
+taskRoutes.route('/update/:id').post(function(req, res) {
+  Task.findById(req.params.id, function(err, task) {
+      if (!task)
+          res.status(404).send("data is not found");
+      else
+          task.Done = req.body.Done;
+          task.DueDate = req.body.DueDate;
+          task.TaskName = req.body.TaskName;
+          task.PerformBy = req.body.PerformBy;
+          task.Odom = req.body.Odom;
+          task.CCAK = req.body.CCAK;
+          task.CCBHI = req.body.CCBHI;
+          task.SGWS = req.body.SGWS;
+          task.NWB = req.body.NWB;
+          task.Quarterly = req.body.Quarterly;
+          task.Note = req.body.Note;
+          task.save().then(task => {
+              res.json('Task updated!');
+          })
+          .catch(err => {
+              res.status(400).send("Update not possible");
+          });
+  });
+});
+
+taskRoutes.route('/add').post(function(req, res) {
+    console.log(req.body);
+  let task = new Task(req.body);
+  task.save()
+      .then(task => {
+          console.log("task is successly save");
+          res.status(200).json({'task': 'task added successfully'});
+      })
+      .catch(err => {
+          console.log("something goes wrong!");
+          res.status(400).send('adding new task failed');
+      });
+});
+
+app.use('/Tasks', taskRoutes);
+
+// Start the API server
+app.listen(PORT, () =>
+  console.log(`🌎  ==> Epress Server now listening on PORT ${PORT}!`)
+);

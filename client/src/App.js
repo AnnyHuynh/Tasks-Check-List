@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import fire from './config/Fire';
-import Task from './components/Task';
+import TaskList from './components/Task';
+import EditTask from './components/EditTask';
+import CreateTask from './components/CreateTask';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
@@ -40,9 +42,16 @@ class App extends Component {
      <Navbar />
      <Switch>
      <Route path="/" component={Home} exact/> 
-         <div>{this.state.user ? ( <Task/>) : (<Route path="/login" component={Login} exact/>)}</div>
+     <Route path="/edit/:id" component={EditTask} />
+     <Route path="/create" component={CreateTask} />
+
+     <div>
+     {this.state.user ?  
+           ( <TaskList/>) : (<Route path="/login" component={Login} exact/>)}
+     </div>
 
      <Route component={Error}/>
+     
      </Switch>  
       
      </BrowserRouter>
