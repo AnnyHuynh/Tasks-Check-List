@@ -46,11 +46,8 @@ const Task = props => (
         <button><Icon type="edit" theme="twoTone" /></button>
         </Link>
         </td>
-        <td id="done" style={{textAlign:"center"}}><input  className="form-check-input"
-        id="completedCheckbox"
-        type="checkbox"
-        name="completedCheckbox"
-        />{props.task.Done}</td>
+        <td id="done" style={{textAlign:"center"}}><input
+        type="checkbox" name="check-tabl"/>{props.task.Done}</td>
         <td style={{whiteSpace:"nowrap"}} className={props.task.Done ? 'completed' : ''}>{moment(props.task.DueDate).format('dddd, MMMM Do')}</td>
         <td className = {props.task.Done ? 'completed' : ''}>{props.task.TaskName}</td>
         <td className = {props.task.Done ? 'completed' : ''}>{props.task.PerformBy}</td>
@@ -76,6 +73,16 @@ class TaskList extends Component {
     }
 
     componentDidMount() {
+        axios.get('/Tasks')
+            .then(response => {
+                this.setState({ tasks: response.data });
+            })
+            .catch(function (error){
+                console.log(error);
+            })
+    }
+
+    componentDidUpdate() {
         axios.get('/Tasks')
             .then(response => {
                 this.setState({ tasks: response.data });

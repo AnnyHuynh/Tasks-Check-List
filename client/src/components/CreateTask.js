@@ -177,7 +177,7 @@ class CreateTask extends Component {
                   Quarterly: ' ',
                   Note: ' '
                 })
-                this.props.history.push('/tasks');
+                this.props.history.push('/Tasks');
             }
 
 

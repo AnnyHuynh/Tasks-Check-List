@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {Link} from "react-router-dom";
 import axios from 'axios';
+var moment = require('moment');
 
 
 const styles = {
@@ -79,7 +80,7 @@ class EditTask extends React.Component {
           .then(response => {
               this.setState({
                   Done: response.data.Done,
-                  DueDate: response.data.DueDate,
+                  DueDate: moment(response.data.DueDate).format('MM/DD/YY'),
                   TaskName: response.data.TaskName,
                   PerformBy: response.data.PerformBy,
                   ODOM: response.data.ODOM,
@@ -180,12 +181,12 @@ class EditTask extends React.Component {
     };
 
     console.log(obj);
-        axios.post('http://localhost:3002/tasks/update/'+this.props.match.params.id, obj)
+        axios.post('http://localhost:3002/Tasks/update/'+this.props.match.params.id, obj)
             .then(res => console.log(res.data));
         
-        this.props.history.push('/tasks');
+        this.props.history.push('/Tasks');
     
-  }
+   }
 
     render() {
         return (

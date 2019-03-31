@@ -6,7 +6,7 @@ const taskSchema = new Schema({
   DueDate: { type: Date },
   TaskName: { type: String, required: true },
   PerformBy: { type: String, required: true },
-  Odom: { type: String },
+  ODOM: { type: String },
   CCAK: { type: String },
   CCBHI: { type: String },
   SGWS: { type: String },
