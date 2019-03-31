@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
-  Done: { type: Boolean },
+  Done: { type: Boolean, default: false },
   DueDate: { type: Date },
   TaskName: { type: String, required: true },
   PerformBy: { type: String, required: true },

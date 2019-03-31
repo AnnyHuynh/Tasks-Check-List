@@ -6,6 +6,7 @@ import Table from 'react-bootstrap/Table';
 import { Icon } from 'antd';
 import {Link} from "react-router-dom";
 import axios from 'axios';
+var moment = require('moment');
 
 const styles = {
     backGroundImage: {
@@ -37,7 +38,7 @@ const styles = {
   }
 
 const Task = props => (
-    <tr>
+      <tr>
         <td id="delete-task" style={{textAlign: "center"}}><button><Icon type="delete" theme="twoTone" /></button>
         </td>
         <td id="edit" style={{textAlign: "center"}}>
@@ -45,10 +46,14 @@ const Task = props => (
         <button><Icon type="edit" theme="twoTone" /></button>
         </Link>
         </td>
-        <td id="done" style={{textAlign:"center"}}><input type="checkbox" name="check-tabl"/></td>
-        <td>{props.task.DueDate}</td>
-        <td>{props.task.TaskName}</td>
-        <td>{props.task.PerformBy}</td>
+        <td id="done" style={{textAlign:"center"}}><input  className="form-check-input"
+        id="completedCheckbox"
+        type="checkbox"
+        name="completedCheckbox"
+        />{props.task.Done}</td>
+        <td style={{whiteSpace:"nowrap"}} className={props.task.Done ? 'completed' : ''}>{moment(props.task.DueDate).format('dddd, MMMM Do')}</td>
+        <td className = {props.task.Done ? 'completed' : ''}>{props.task.TaskName}</td>
+        <td className = {props.task.Done ? 'completed' : ''}>{props.task.PerformBy}</td>
         <td>{props.task.ODOM}</td>
         <td>{props.task.CCAK}</td>
         <td>{props.task.CCBHI}</td>

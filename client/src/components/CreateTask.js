@@ -10,7 +10,7 @@ const styles = {
       background: 'url(/images/todo-backgr4.jpeg)',
       backgroundSize: 'cover',
       overflow: 'hidden',
-      height: "300vh",
+      height: "200vh",
     },
     buttonOut: {
         backgroundColor: "#ff9c6e",
@@ -177,6 +177,7 @@ class CreateTask extends Component {
                   Quarterly: ' ',
                   Note: ' '
                 })
+                this.props.history.push('/tasks');
             }
 
 
