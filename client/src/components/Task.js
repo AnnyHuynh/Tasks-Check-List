@@ -39,14 +39,14 @@ const styles = {
 
 const Task = props => (
       <tr>
-        <td id="delete-task" style={{textAlign: "center"}}><button><Icon type="delete" theme="twoTone" /></button>
+        <td id="delete-task" style={{textAlign: "center"}}><button onClick={props.remove}><Icon type="delete" theme="twoTone" /></button>
         </td>
         <td id="edit" style={{textAlign: "center"}}>
         <Link to={"/edit/"+props.task._id}>
         <button><Icon type="edit" theme="twoTone" /></button>
         </Link>
         </td>
-        <td id="done" style={{textAlign:"center"}}><input
+        <td id="done" style={{textAlign:"center"}}><input 
         type="checkbox" name="check-tabl"/>{props.task.Done}</td>
         <td style={{whiteSpace:"nowrap"}} className={props.task.Done ? 'completed' : ''}>{moment(props.task.DueDate).format('dddd, MMMM Do')}</td>
         <td className = {props.task.Done ? 'completed' : ''}>{props.task.TaskName}</td>
@@ -92,9 +92,18 @@ class TaskList extends Component {
             })
     }
 
+    removeTask = (i) => {
+        this.setState({
+          tasks: [
+            ...this.state.tasks.slice(0, i),
+            ...this.state.tasks.slice(i + 1)
+          ]
+        });
+      };
+
     TaskList() {
         return this.state.tasks.map(function(currentTask, i){
-            return <Task task={currentTask} key={i} />;
+            return <Task task={currentTask} key={i} remove={()=>this.removeTask(i)}/>;
         })
     }
 
