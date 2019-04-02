@@ -37,9 +37,11 @@ const styles = {
       }
   }
 
-const Task = props => (
+const Task = props => {
+    const {task, index} = props;
+return(
       <tr>
-        <td id="delete-task" style={{textAlign: "center"}}><button onClick={props.remove}><Icon type="delete" theme="twoTone" /></button>
+        <td id="delete-task" style={{textAlign: "center"}}><button onClick={() => props.removeTask(index)}><Icon type="delete" theme="twoTone" /></button>
         </td>
         <td id="edit" style={{textAlign: "center"}}>
         <Link to={"/edit/"+props.task._id}>
@@ -47,8 +49,9 @@ const Task = props => (
         </Link>
         </td>
         <td id="done" style={{textAlign:"center"}}><input 
-        type="checkbox" name="check-tabl"/>{props.task.Done}</td>
-        <td style={{whiteSpace:"nowrap"}} className={props.task.Done ? 'completed' : ''}>{moment(props.task.DueDate).format('dddd, MMMM Do')}</td>
+         type="checkbox" name="check-tabl" onChange={(event) => props.toggleTaskDone(event, index)}
+         checked={task.Done}/></td>
+        <td style={{whiteSpace:"nowrap"}} className={props.task.Done ? 'completed' : ''}>{props.task.DueDate ? moment(props.task.DueDate).format('dddd, MMMM Do') : ''}</td>
         <td className = {props.task.Done ? 'completed' : ''}>{props.task.TaskName}</td>
         <td className = {props.task.Done ? 'completed' : ''}>{props.task.PerformBy}</td>
         <td>{props.task.ODOM}</td>
@@ -60,11 +63,16 @@ const Task = props => (
         <td>{props.task.Note}</td>
     </tr>
 )
+}
 
 class TaskList extends Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
+        this.toggleTaskDone = this.toggleTaskDone.bind(this);
+        this.removeTask = this.removeTask.bind(this);
+        this.TaskList = this.TaskList.bind(this);
+        
         this.state = {tasks: []};
     }
 
@@ -85,26 +93,45 @@ class TaskList extends Component {
     componentDidUpdate() {
         axios.get('/Tasks')
             .then(response => {
-                this.setState({ tasks: response.data });
+                //this.setState({ tasks: response.data });
             })
             .catch(function (error){
                 console.log(error);
             })
     }
 
-    removeTask = (i) => {
+    removeTask(index) {
+        const tasks = [...this.state.tasks]; // copy the array
+        tasks.splice(index, 1);
+    
         this.setState({
-          tasks: [
-            ...this.state.tasks.slice(0, i),
-            ...this.state.tasks.slice(i + 1)
-          ]
+          tasks
         });
-      };
+    }
 
+    toggleTaskDone(event, index) {
+        const tasks = [...this.state.tasks]; // copy the array
+        tasks[index] = {
+            ...tasks[index],
+            Done: event.target.checked // update done property on copied todo
+        }; // copy the todo can also use Object.assign
+        this.setState({
+            tasks
+        });
+    }
+    
     TaskList() {
-        return this.state.tasks.map(function(currentTask, i){
-            return <Task task={currentTask} key={i} remove={()=>this.removeTask(i)}/>;
-        })
+        return this.state.tasks.map((task, index) => {
+            return (
+                <Task 
+                    key={index}
+                    index={index}
+                    task={task} 
+                    toggleTaskDone={this.toggleTaskDone}
+                    removeTask={this.removeTask}
+                />
+            );
+        });
     }
 
     render() {
