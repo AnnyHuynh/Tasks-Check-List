@@ -21,7 +21,7 @@ const styles = {
         marginLeft: "1160px",
         border: "solid pink 3px",
       },
-    buttonAdd: {
+    buttonBack: {
         backgroundColor: "#ff9c6e",
         padding: "8px",
         color: "#002766",
@@ -188,7 +188,7 @@ class CreateTask extends Component {
             <Col xs={11} style={{backgroundColor: "rgba(255, 255, 255, 0.7)", height: "100%", marginTop: "40px", padding: "25px"}}>
               <div>
               <button style={styles.buttonOut} onClick={this.logout}>Logout</button>
-              <Link to="/create"><button style={styles.buttonAdd}> Add Task </button></Link>
+              <Link to="/Tasks"><button style={styles.buttonBack}> Back </button></Link>
               </div>
   
               <h2 style={{textAlign: "center"}}>Accounting Department Monthly Closing Calendar</h2>

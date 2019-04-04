@@ -35,25 +35,15 @@ const styles = {
         bottom: "44px",
         border: "solid pink 3px",
       },
-      Save: {
-        backgroundColor: "#ff9c6e",
-        padding: "8px",
-        color: "#002766",
-        fontsize: "20px",
-        width: "100px", 
-        marginLeft: "880px",
-        top: "48px",
-        position: "relative",
-        border: "solid pink 3px",
-      },
+      
       Uncheck: {
         backgroundColor: "#ff9c6e",
         padding: "8px",
         color: "#002766",
         fontsize: "20px",
         width: "160px", 
-        marginLeft: "680px",
-        top: "92px",
+        marginLeft: "820px",
+        top: "50px",
         position: "relative",
         border: "solid pink 3px",
       }
@@ -172,25 +162,21 @@ class TaskList extends Component {
         //  });
     }
 
-    buttonUncheck(unCheck){
-
-        unCheck.Done = false;
-
+    buttonUncheck(){
         const unCheckTasks = [...this.state.tasks];
         this.setState({
-             task: unCheckTasks.map(task => {
-                 if (task._id === unCheck._id) {
-                     return unCheck;
+             tasks: unCheckTasks.map(task => {
+                 return {
+                     ...task,
+                     Done: false
                  }
-
-                 return unCheck;
              })
          }, () => {
-             axios.put('http://localhost:3002/Tasks/undo/' + unCheck._id, unCheck)
+             axios.put('http://localhost:3002/Tasks/undo')
                  .then(res => {
                    console.log(res);  
                  });
-                });
+            });
     };
 
 
@@ -216,7 +202,6 @@ class TaskList extends Component {
           <Col xs={11} style={{backgroundColor: "rgba(255, 255, 255, 0.7)", height: "100%", marginTop: "40px", padding: "25px"}}>
             <div>
             <button style={styles.Uncheck} onClick={(unCheck) => this.buttonUncheck(unCheck)}>Uncheck All Tasks</button>
-            <button style={styles.Save} onClick={this.buttonSave}>Save</button>
             <button style={styles.buttonOut} onClick={this.logout}>Logout</button>
             <Link to="/create"><button style={styles.buttonAdd}> Add Task </button></Link>
             </div>
