@@ -87,16 +87,40 @@ class TaskList extends Component {
         this.buttonUncheck = this.buttonUncheck.bind(this);
         
         this.state = {tasks: []};
+        // this.compareBy = this.compareBy.bind(this);
+        this.onSort = this.onSort.bind(this)
     }
 
     logout() {
         fire.auth().signOut();
     }
 
+    // compareBy(key) {
+    //     console.log('compareBy')
+        
+    //       if (a[key] < b[key]) return -1;
+    //       if (a[key] > b[key]) return 1;
+    //       return 0;
+        
+    //   }
+
+    onSort(key) {
+        console.log('onSort: ', key)
+        let arrayCopy = [...this.state.tasks];
+        arrayCopy.sort((a, b) => {
+            if (a[key] < b[key]) return -1;
+            if (a[key] > b[key]) return 1;
+            return 0;
+        });
+        this.setState({tasks: arrayCopy});
+      }
+
     componentDidMount() {
         axios.get('/Tasks')
             .then(response => {
-                this.setState({ tasks: response.data });
+                this.setState({ 
+                    tasks: response.data 
+                }, () => this.onSort('Sort'));
             })
             .catch(function (error){
                 console.log(error);
@@ -181,6 +205,7 @@ class TaskList extends Component {
 
 
     TaskList() {
+
         return this.state.tasks.map((task, index) => {
             return (
                 <Task 
@@ -207,7 +232,7 @@ class TaskList extends Component {
             </div>
 
             <h2 style={{textAlign: "center"}}>Accounting Department Monthly Closing Calendar</h2>
-            <h3 style={{textAlign: "center"}}> For the Month Ended: </h3> 
+            <h3 style={{textAlign: "center"}}> For the Month Ended: March 31, 2019 </h3> 
             <hr style={{height: "1px", padding:"1px", background: "gray", width: "860px"}}/>
 
                 <div>
