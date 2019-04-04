@@ -8,18 +8,6 @@ const mongoose = require("mongoose");
 const taskRoutes = express.Router();
 // const routes = require("./routes");
 // const taskController = require('./controllers/taskController');
-const PORT = process.env.PORT || 3002;
-
-if (process.env.NODE_ENV === 'production') {
-    // Exprees will serve up production assets
-    app.use(express.static('client/build'));
-  
-    // Express serve up index.html file if it doesn't recognize route
-    const path = require('path');
-    app.get('*', (req, res) => {
-      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
-  }
 
 app.use(cors());
 
@@ -32,7 +20,11 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
+app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+  })
 
+  
 taskRoutes.route('/').get(function(req, res) {
   Task.find({})
     .then((results) => {
@@ -113,6 +105,8 @@ taskRoutes.route('/add').post(function(req, res) {
 
 
 app.use('/Tasks', taskRoutes);
+
+const PORT = process.env.PORT || 3002;
 
 // Start the API server
 app.listen(PORT, () =>
