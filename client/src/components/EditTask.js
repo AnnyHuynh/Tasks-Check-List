@@ -47,7 +47,6 @@ class EditTask extends React.Component {
 
     constructor(props){
       super(props);
-      this.onchangeDone = this.onchangeDone.bind(this);
       this.onChangeDueDate = this.onChangeDueDate.bind(this);
       this.onChangeTaskName = this.onChangeTaskName.bind(this);
       this.onChangePerformBy = this.onChangePerformBy.bind(this);
@@ -61,7 +60,6 @@ class EditTask extends React.Component {
       this.onSubmit = this.onSubmit.bind(this);
 
       this.state = {
-        Done: false,
         DueDate: ' ',
         TaskName: ' ',
         PerformBy: ' ',
@@ -79,7 +77,6 @@ class EditTask extends React.Component {
       axios.get('http://localhost:3002/tasks/'+this.props.match.params.id)
           .then(response => {
               this.setState({
-                  Done: response.data.Done,
                   DueDate: moment(response.data.DueDate).format('MM/DD/YY'),
                   TaskName: response.data.TaskName,
                   PerformBy: response.data.PerformBy,
@@ -96,12 +93,6 @@ class EditTask extends React.Component {
               console.log(error);
           })
   }
-
-    onchangeDone(e) {
-      this.setState({
-        Done: !this.state.Done
-      })
-    }
     onChangeDueDate(e) {
       this.setState({
           DueDate: e.target.value
@@ -167,7 +158,6 @@ class EditTask extends React.Component {
       e.preventDefault();
 
       const obj = {
-        Done: this.state.Done,
         DueDate: this.state.DueDate,
         TaskName: this.state.TaskName,
         PerformBy: this.state.PerformBy,
@@ -182,9 +172,8 @@ class EditTask extends React.Component {
 
     console.log(obj);
         axios.post('http://localhost:3002/Tasks/update/'+this.props.match.params.id, obj)
-            .then(res => console.log(res.data));
-        
-        this.props.history.push('/Tasks');
+            .then(res => this.props.history.push('/Tasks'));
+      
     
    }
 
@@ -205,21 +194,6 @@ class EditTask extends React.Component {
               <div style={{marginTop: "30px"}}/>
               <h3>Edit Task Here!</h3>
               <form onSubmit={this.onSubmit}>
-              <div className="form-check">
-                <label style={{marginLeft: "-20px"}} className="form-check-label" htmlFor="completedCheckbox">
-                              Done
-                </label> 
-                <br/>
-                <input  className="form-check-input"
-                        id="completedCheckbox"
-                        type="checkbox"
-                        name="completedCheckbox"
-                        onChange={this.onchangeDone}
-                        checked={this.state.Done}
-                        value={this.state.Done}
-                        />                       
-                </div>
-                <br/> <br/>
 
                 <div className="form-group"> 
                     <label>Due Date: </label>

@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// require('./models/db');
+ //require('./models/db');
 const Task = require('./models/task.model');
 const mongoose = require("mongoose");
 const taskRoutes = express.Router();
@@ -75,6 +75,23 @@ taskRoutes.route('/add').post(function(req, res) {
           res.status(400).send('adding new task failed');
       });
 });
+
+ taskRoutes.route('/save/:id').put(function(req, res){
+         console.log('in route',req.body);
+         Task.findOneAndUpdate({ _id: req.params.id }, req.body)
+            .then(res => console.log(res))
+            .catch(err => res.status(422).json(err));
+     });
+
+    taskRoutes.route('/delete/:id').delete(function(req, res){
+        console.log(req.body);
+       
+        Task.findOneAndRemove({ _id: req.params.id }, req.body)
+        .then(res => console.log(res))
+        .catch(err => res.status(422).json(err));
+    });
+ 
+
 
 app.use('/Tasks', taskRoutes);
 

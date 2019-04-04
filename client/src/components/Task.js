@@ -34,14 +34,36 @@ const styles = {
         position: "relative",
         bottom: "44px",
         border: "solid pink 3px",
+      },
+      Save: {
+        backgroundColor: "#ff9c6e",
+        padding: "8px",
+        color: "#002766",
+        fontsize: "20px",
+        width: "100px", 
+        marginLeft: "880px",
+        top: "48px",
+        position: "relative",
+        border: "solid pink 3px",
+      },
+      Uncheck: {
+        backgroundColor: "#ff9c6e",
+        padding: "8px",
+        color: "#002766",
+        fontsize: "20px",
+        width: "160px", 
+        marginLeft: "680px",
+        top: "92px",
+        position: "relative",
+        border: "solid pink 3px",
       }
   }
 
 const Task = props => {
-    const {task, index} = props;
+    const {task} = props;
 return(
       <tr>
-        <td id="delete-task" style={{textAlign: "center"}}><button onClick={() => props.removeTask(index)}><Icon type="delete" theme="twoTone" /></button>
+        <td id="delete-task" style={{textAlign: "center"}}><button onClick={() => props.removeTask(task)}><Icon type="delete" theme="twoTone" /></button>
         </td>
         <td id="edit" style={{textAlign: "center"}}>
         <Link to={"/edit/"+props.task._id}>
@@ -49,8 +71,8 @@ return(
         </Link>
         </td>
         <td id="done" style={{textAlign:"center"}}><input 
-         type="checkbox" name="check-tabl" onChange={(event) => props.toggleTaskDone(event, index)}
-         checked={task.Done}/></td>
+         type="checkbox" name="check-tabl" onChange={() => props.toggleTaskDone(task)}
+         checked={task.Done}/></td> 
         <td style={{whiteSpace:"nowrap"}} className={props.task.Done ? 'completed' : ''}>{props.task.DueDate ? moment(props.task.DueDate).format('dddd, MMMM Do') : ''}</td>
         <td className = {props.task.Done ? 'completed' : ''}>{props.task.TaskName}</td>
         <td className = {props.task.Done ? 'completed' : ''}>{props.task.PerformBy}</td>
@@ -93,33 +115,66 @@ class TaskList extends Component {
     componentDidUpdate() {
         axios.get('/Tasks')
             .then(response => {
-                //this.setState({ tasks: response.data });
+               //this.setState({ tasks: response.data });
             })
             .catch(function (error){
                 console.log(error);
             })
     }
 
-    removeTask(index) {
-        const tasks = [...this.state.tasks]; // copy the array
-        tasks.splice(index, 1);
-    
+    removeTask(task) {
+        const tasks = [...this.state.tasks].filter(tempTask => (
+            !(tempTask._id === task._id)
+        ));
+
         this.setState({
           tasks
+        }, () => {
+            axios.delete('http://localhost:3002/Tasks/delete/' + task._id, task)
+                .then(res => {
+                  console.log(res);  
+                })
         });
+    };
+
+    toggleTaskDone(task) {
+         const tempTask = task;
+
+         console.log(tempTask)
+
+         tempTask.Done = true;
+        // // call API /save
+        // // send tempTask
+         const updatedTasks = [...this.state.tasks];
+         this.setState({
+             task: updatedTasks.map(task => {
+                 if (task._id === tempTask._id) {
+                     return tempTask;
+                 }
+
+                 return task;
+             })
+         }, () => {
+             axios.put('http://localhost:3002/Tasks/save/' + tempTask._id, tempTask)
+                 .then(res => {
+                   console.log(res);  
+                 });
+         });
+
+        // const tasks = [...this.state.tasks]; // copy the array
+        //  tasks[index] = {
+        //      ...tasks[index],
+        //      Done: event.target.checked // update done property on copied todo
+        //  }; // copy the todo can also use Object.assign
+        //  this.setState({
+        //      tasks
+        //  });
     }
 
-    toggleTaskDone(event, index) {
-        const tasks = [...this.state.tasks]; // copy the array
-        tasks[index] = {
-            ...tasks[index],
-            Done: event.target.checked // update done property on copied todo
-        }; // copy the todo can also use Object.assign
-        this.setState({
-            tasks
-        });
+    buttonUncheck(){
+
     }
-    
+
     TaskList() {
         return this.state.tasks.map((task, index) => {
             return (
@@ -141,6 +196,8 @@ class TaskList extends Component {
           <Col></Col>
           <Col xs={11} style={{backgroundColor: "rgba(255, 255, 255, 0.7)", height: "100%", marginTop: "40px", padding: "25px"}}>
             <div>
+            <button style={styles.Uncheck} onClick={this.buttonUncheck}>Uncheck All Tasks</button>
+            <button style={styles.Save} onClick={this.buttonSave}>Save</button>
             <button style={styles.buttonOut} onClick={this.logout}>Logout</button>
             <Link to="/create"><button style={styles.buttonAdd}> Add Task </button></Link>
             </div>
