@@ -94,6 +94,7 @@ class TaskList extends Component {
         this.toggleTaskDone = this.toggleTaskDone.bind(this);
         this.removeTask = this.removeTask.bind(this);
         this.TaskList = this.TaskList.bind(this);
+        this.buttonUncheck = this.buttonUncheck.bind(this);
         
         this.state = {tasks: []};
     }
@@ -171,9 +172,27 @@ class TaskList extends Component {
         //  });
     }
 
-    buttonUncheck(){
+    buttonUncheck(unCheck){
 
-    }
+        unCheck.Done = false;
+
+        const unCheckTasks = [...this.state.tasks];
+        this.setState({
+             task: unCheckTasks.map(task => {
+                 if (task._id === unCheck._id) {
+                     return unCheck;
+                 }
+
+                 return unCheck;
+             })
+         }, () => {
+             axios.put('http://localhost:3002/Tasks/undo/' + unCheck._id, unCheck)
+                 .then(res => {
+                   console.log(res);  
+                 });
+                });
+    };
+
 
     TaskList() {
         return this.state.tasks.map((task, index) => {
@@ -196,7 +215,7 @@ class TaskList extends Component {
           <Col></Col>
           <Col xs={11} style={{backgroundColor: "rgba(255, 255, 255, 0.7)", height: "100%", marginTop: "40px", padding: "25px"}}>
             <div>
-            <button style={styles.Uncheck} onClick={this.buttonUncheck}>Uncheck All Tasks</button>
+            <button style={styles.Uncheck} onClick={(unCheck) => this.buttonUncheck(unCheck)}>Uncheck All Tasks</button>
             <button style={styles.Save} onClick={this.buttonSave}>Save</button>
             <button style={styles.buttonOut} onClick={this.logout}>Logout</button>
             <Link to="/create"><button style={styles.buttonAdd}> Add Task </button></Link>

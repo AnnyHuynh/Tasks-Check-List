@@ -83,10 +83,18 @@ taskRoutes.route('/add').post(function(req, res) {
             .catch(err => res.status(422).json(err));
      });
 
-    taskRoutes.route('/delete/:id').delete(function(req, res){
+  taskRoutes.route('/delete/:id').delete(function(req, res){
         console.log(req.body);
        
         Task.findOneAndRemove({ _id: req.params.id }, req.body)
+        .then(res => console.log(res))
+        .catch(err => res.status(422).json(err));
+    });
+
+  taskRoutes.route('/undo/:id').put(function(req, res){
+        console.log(req.body);
+       
+        Task.findOneAndUpdate({ _id: req.params.id }, req.body)
         .then(res => console.log(res))
         .catch(err => res.status(422).json(err));
     });
