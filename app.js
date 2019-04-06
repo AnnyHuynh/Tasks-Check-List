@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/public/index.html'))
+    res.sendFile(path.join(__dirname + 'client/public/index.html'))
 })
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/TaskDB');
