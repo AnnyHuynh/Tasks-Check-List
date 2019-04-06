@@ -157,7 +157,7 @@ class TaskList extends Component {
 
          console.log(tempTask)
 
-         tempTask.Done = true;
+         tempTask.Done = !tempTask.Done;
         // // call API /save
         // // send tempTask
          const updatedTasks = [...this.state.tasks];
