@@ -14,7 +14,7 @@ app.use(cors());
 
 // app.use('/task', taskController);
 app.use(bodyParser.json());
-
+app.use(express.static(task.join(__dirname, 'public')))
 app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/public/index.html'))
 })
