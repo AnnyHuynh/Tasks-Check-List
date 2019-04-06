@@ -6,6 +6,7 @@ const cors = require('cors');
 const Task = require('./models/task.model');
 const mongoose = require("mongoose");
 const taskRoutes = express.Router();
+var path = require('path');
 // const routes = require("./routes");
 // const taskController = require('./controllers/taskController');
 
@@ -13,6 +14,10 @@ app.use(cors());
 
 // app.use('/task', taskController);
 app.use(bodyParser.json());
+
+app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/public/index.html'))
+})
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/TaskDB');
 const connection = mongoose.connection;
