@@ -163,11 +163,12 @@ class TaskList extends Component {
          const updatedTasks = [...this.state.tasks];
          this.setState({
              task: updatedTasks.map(task => {
-                 if (task._id === tempTask._id) {
-                     return tempTask;
-                 }
+                  if (task._id === tempTask._id) {
 
-                 return task;
+                      return tempTask
+                  } 
+                  return task;
+
              })
          }, () => {
              axios.put('http://localhost:3002/Tasks/save/' + tempTask._id, tempTask)
@@ -221,7 +222,7 @@ class TaskList extends Component {
 
     render() {
         console.log("state", this.state);
-        return (
+        return (   
           <Row style={styles.backGroundImage}>
           <Col></Col>
           <Col xs={11} style={{backgroundColor: "rgba(255, 255, 255, 0.7)", height: "100%", marginTop: "40px", padding: "25px"}}>
@@ -257,8 +258,8 @@ class TaskList extends Component {
                         </thead>
 
                         <tbody> 
-                            
-                              {this.TaskList()}
+                           
+                            {this.TaskList()}
                             
                         </tbody>
                     

@@ -162,7 +162,7 @@ class CreateTask extends Component {
               };
       
               axios.post('http://localhost:3002/Tasks/add', newTask)
-                  .then(res => console.log(res.data));
+                  .then(res => this.props.history.push('/Tasks'));
                 
                 this.setState({
                   Done: false,
@@ -177,7 +177,7 @@ class CreateTask extends Component {
                   Quarterly: ' ',
                   Note: ' '
                 })
-                this.props.history.push('/Tasks');
+               
             }
 
 

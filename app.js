@@ -6,7 +6,6 @@ const cors = require('cors');
 const Task = require('./models/task.model');
 const mongoose = require("mongoose");
 const taskRoutes = express.Router();
-app.use(express.static(path.join(__dirname, 'public')));
 // const routes = require("./routes");
 // const taskController = require('./controllers/taskController');
 
@@ -20,11 +19,7 @@ const connection = mongoose.connection;
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
-app.get('*', (req,res) => {
-    res.sendFile(path.join(__dirname + '/public/index.html'));
-  })
-
-  
+ 
 taskRoutes.route('/').get(function(req, res) {
   Task.find({})
     .then((results) => {
