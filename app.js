@@ -2,12 +2,12 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
- //require('./models/db');
+require('./models/db');
 const Task = require('./models/task.model');
 const mongoose = require("mongoose");
 const taskRoutes = express.Router();
 var path = require('path');
-// const routes = require("./routes");
+ //const routes = require("./routes");
 // const taskController = require('./controllers/taskController');
 
 app.use(cors());
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // app.use('/task', taskController);
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')))
+//app.use(express.static(path.join(__dirname, 'public')))
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/TaskDB', { useNewUrlParser: true });
 const connection = mongoose.connection;
 connection.once('open', function() {
