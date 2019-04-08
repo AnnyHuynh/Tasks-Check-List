@@ -26,21 +26,13 @@ if (process.env.NODE_ENV === 'production') {
 // app.use('/task', taskController);
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')))
- mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/TaskDB', { useNewUrlParser: true });
+ mongoose.connect(process.env.MONGODB_URI || 'mongodb://herokuhost/heroku_c189h9k3:4v78bmvu2dd0lia3tb51ltdaco@ds231991.mlab.com:31991/heroku_c189h9k3');
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
  
 taskRoutes.route('/').get(function(req, res) {
-  Task.find({})
-    .then((results) => {
-        // console.log('here', results)
-        res.send(results);
-    })
-});
-
-taskRoutes.route('/login').get(function(req, res) {
   Task.find({})
     .then((results) => {
         // console.log('here', results)
