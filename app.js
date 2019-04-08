@@ -40,6 +40,14 @@ taskRoutes.route('/').get(function(req, res) {
     })
 });
 
+taskRoutes.route('/login').get(function(req, res) {
+  Task.find({})
+    .then((results) => {
+        // console.log('here', results)
+        res.send(results);
+    })
+});
+
 taskRoutes.route('/:id').get(function(req, res) {
   let id = req.params.id;
   Task.findById(id, function(err, task) {
