@@ -1,4 +1,5 @@
 const express = require("express");
+const http = require('http');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -114,7 +115,9 @@ app.use('/Tasks', taskRoutes);
 
 const PORT = process.env.PORT || 3002;
 
+const server = http.createServer(app);
+
 // Start the API server
-app.listen(PORT, () =>
+server.listen(PORT, () =>
   console.log(`🌎  ==> Epress Server now listening on PORT ${PORT}!`)
 );
