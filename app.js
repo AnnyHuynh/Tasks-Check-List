@@ -6,7 +6,7 @@ require('./models/db');
 const Task = require('./models/task.model');
 const mongoose = require("mongoose");
 const taskRoutes = express.Router();
-var path = require('path');
+const path = require('path');
  //const routes = require("./routes");
 // const taskController = require('./controllers/taskController');
 
@@ -14,19 +14,18 @@ app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
     // Exprees will serve up production assets
-    app.use(express.static('client/build'));
+    app.use(express.static(path.join(__dirname, 'client/build')));
   
     // Express serve up index.html file if it doesn't recognize route
-    const path = require('path');
-    app.get('*', (req, res) => {
-      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    app.get('*', function(req, res) {
+      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
   }
 
 // app.use('/task', taskController);
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')))
- mongoose.connect(process.env.MONGODB_URI || 'mongodb://herokuhost/heroku_c189h9k3:4v78bmvu2dd0lia3tb51ltdaco@ds231991.mlab.com:31991/heroku_c189h9k3');
+//app.use(express.static(path.join(__dirname, 'public')))
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/TaskDB', { useNewUrlParser: true });
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully");

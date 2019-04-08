@@ -13,15 +13,6 @@ const styles = {
       overflow: 'hidden',
       height: "200vh",
     },
-    buttonOut: {
-        backgroundColor: "#ff9c6e",
-        padding: "8px",
-        color: "#002766",
-        fontsize: "20px",
-        width: "100px", 
-        marginLeft: "1160px",
-        border: "solid pink 3px",
-      },
     buttonBack: {
         backgroundColor: "#ff9c6e",
         padding: "8px",
@@ -30,7 +21,7 @@ const styles = {
         width: "100px", 
         marginLeft: "1020px",
         position: "relative",
-        bottom: "44px",
+        left: "60px",
         border: "solid pink 3px",
       },
       buttonSubmit: {
@@ -183,7 +174,6 @@ class EditTask extends React.Component {
             <Col></Col>
             <Col xs={11} style={{backgroundColor: "rgba(255, 255, 255, 0.7)", height: "100%", marginTop: "40px", padding: "25px"}}>
               <div>
-              <button style={styles.buttonOut} onClick={this.logout}>Logout</button>
               <Link to="/Tasks"><button style={styles.buttonBack}> Back </button></Link>
               </div>
   
