@@ -15,10 +15,10 @@ I have been working as an accountant in several companies and I see the same iss
 ![Home Page](./client/public/images/Home.jpg)
 
 #### Login and Sign Up page 
-![Login/SignUp Page](.client/public/images/login.jpg)
+![Login/SignUp Page](./client/public/images/login.jpg)
 
 #### Task Page after Logged In
-![Task Page](.client/public/images/taskPage.jpg)
+![Task Page](./client/public/images/taskPage.jpg)
 
 
 ## Tech/Frameworks Used
