@@ -1,18 +1,12 @@
 {
   "name": "myapp",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
-  "main": "app.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "postinstall": "react-scripts build"
-  },
-  "engines": {
-    "node": "~6.10.3",
-    "npm": "~5.6.0"
+    "heroku-prebuild": "rm -rf public/ && mkdir public",
+    "heroku-postbuild": "cd client && npm i && npm run build",
+    "start": "node app.js",
+    "dev": "concurrently \"node app.js\" \"cd client && npm start \""
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -20,16 +14,13 @@
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
-    "express": "^4.16.4",
+    "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "mongod": "^2.0.0",
     "mongoose": "^5.3.4",
     "morgan": "~1.9.0",
     "nodemon": "^1.18.10",
     "path": "^0.12.7",
-    "pug": "2.0.0-beta11",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
+    "pug": "2.0.0-beta11"
   }
 }

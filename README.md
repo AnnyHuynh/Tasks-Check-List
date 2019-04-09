@@ -1,5 +1,5 @@
 #Accounting's Month-End Calendar!
-This is an App where Employees can access and check box the tasks they have done so that manager and other employees can see the month end task progress. Please Visit App [Here!](https://nameless-eyrie-38692.herokuapp.com/)
+This is an App where Employees can access and check box the tasks they have done so that manager and other employees can see the month end task progress. Please Visit App [Here!](https://pacific-sierra-38191.herokuapp.com/)
 
 ## Motivation
 
@@ -18,12 +18,13 @@ I have been working as an accountant in several companies and I see the same iss
 ![Login/SignUp Page](./public/images/login.jpg)
 
 #### Task Page after Logged In
-![Task Page](./public/images/Task.jpg)
+![Task Page](./public/images/taskPage.jpg)
 
 
 ## Tech/Frameworks Used
 
-+ MySQL
++ MongoDB
++ ES6
 + Express
 + Node.js
 + React

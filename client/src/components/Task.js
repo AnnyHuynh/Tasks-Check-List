@@ -228,7 +228,7 @@ class TaskList extends Component {
           <Col xs={11} style={{backgroundColor: "rgba(255, 255, 255, 0.7)", height: "100%", marginTop: "40px", padding: "25px"}}>
             <div>
             <button style={styles.Uncheck} onClick={(unCheck) => this.buttonUncheck(unCheck)}>Uncheck All Tasks</button>
-            <button style={styles.buttonOut} onClick={this.logout}>Logout</button>
+            <Link to="/"><button style={styles.buttonOut} onClick={this.logout}>Logout</button></Link>
             <Link to="/create"><button style={styles.buttonAdd}> Add Task </button></Link>
             </div>
 
