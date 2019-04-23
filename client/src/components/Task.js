@@ -119,7 +119,7 @@ class TaskList extends Component {
         axios.get('/Tasks')
             .then(response => {
                 this.setState({ 
-                    tasks: response.data
+                    tasks: response.data 
                 }, () => this.onSort('Sort'));
             })
             .catch(function (error){
@@ -208,12 +208,11 @@ class TaskList extends Component {
     TaskList() {
 
         return this.state.tasks.map((task, index) => {
-            console.log(task);
             return (
                 <Task 
                     key={index}
                     index={index}
-                    task={task}     
+                    task={task} 
                     toggleTaskDone={this.toggleTaskDone}
                     removeTask={this.removeTask}
                 />
