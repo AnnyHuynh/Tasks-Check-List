@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 // app.use('/task', taskController);
 app.use(bodyParser.json());
 //app.use(express.static(path.join(__dirname, 'public')))
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/TaskDB', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/TaskDB', { useMongoClient: true });
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
