@@ -233,7 +233,7 @@ class TaskList extends Component {
             </div>
 
             <h2 style={{textAlign: "center"}}>Accounting Department Monthly Closing Calendar</h2>
-            <h3 style={{textAlign: "center"}}> For the Month Ended: March 31, 2019 </h3> 
+            <h3 style={{textAlign: "center"}}> For the Month Ended: April 30, 2019 </h3> 
             <hr style={{height: "1px", padding:"1px", background: "gray", width: "860px"}}/>
 
                 <div>
