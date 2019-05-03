@@ -41,7 +41,7 @@ class EditTask extends React.Component {
       this.onChangeDueDate = this.onChangeDueDate.bind(this);
       this.onChangeTaskName = this.onChangeTaskName.bind(this);
       this.onChangePerformBy = this.onChangePerformBy.bind(this);
-      this.onChangeOdom = this.onChangeOdom.bind(this);
+      this.onChangeODOM = this.onChangeODOM.bind(this);
       this.onChangeCCAK = this.onChangeCCAK.bind(this);
       this.onChangeCCBHI = this.onChangeCCBHI.bind(this);
       this.onChangeSGWS = this.onChangeSGWS.bind(this);
@@ -102,9 +102,9 @@ class EditTask extends React.Component {
       });
     }
 
-    onChangeOdom(e) {
+    onChangeODOM(e) {
       this.setState({
-          Odom: e.target.value
+          ODOM: e.target.value
       });
     }
 
@@ -152,7 +152,7 @@ class EditTask extends React.Component {
         DueDate: this.state.DueDate,
         TaskName: this.state.TaskName,
         PerformBy: this.state.PerformBy,
-        ODOM: this.state.Odom,
+        ODOM: this.state.ODOM,
         CCAK: this.state.CCAK,
         CCBHI: this.state.CCBHI,
         SGWS: this.state.SGWS,
@@ -216,12 +216,12 @@ class EditTask extends React.Component {
                 </div>
                 <label style={{fontSize:"20px"}}>Companies:</label>
                 <div className="form-group">
-                    <label>Odom: </label>
+                    <label>ODOM: </label>
                     <input 
                             type="text" 
                             className="form-control"
-                            value={this.state.Odom}
-                            onChange={this.onChangeOdom}
+                            value={this.state.ODOM}
+                            onChange={this.onChangeODOM}
                             style={{width:"650px"}}
                             />
                 </div>

@@ -84,7 +84,7 @@ class CreateTask extends Component {
 
         onChangeOdom(e) {
           this.setState({
-              Odom: e.target.value
+              ODOM: e.target.value
           });
         }
 
@@ -131,7 +131,7 @@ class CreateTask extends Component {
                 console.log(`Due Date: ${this.state.DueDate}`);
                 console.log(`Task Name: ${this.state.TaskName}`);
                 console.log(`Perform By: ${this.state.PerformBy}`);
-                console.log(`Odom: ${this.state.Odom}`);
+                console.log(`Odom: ${this.state.ODOM}`);
                 console.log(`CCAK: ${this.state.CCAK}`);
                 console.log(`CCBHI: ${this.state.CCBHI}`);
                 console.log(`SGWS: ${this.state.SGWS}`);
@@ -143,7 +143,7 @@ class CreateTask extends Component {
                   DueDate: this.state.DueDate,
                   TaskName: this.state.TaskName,
                   PerformBy: this.state.PerformBy,
-                  ODOM: this.state.Odom,
+                  ODOM: this.state.ODOM,
                   CCAK: this.state.CCAK,
                   CCBHI: this.state.CCBHI,
                   SGWS: this.state.SGWS,
@@ -160,7 +160,7 @@ class CreateTask extends Component {
                   DueDate: ' ',
                   TaskName: ' ',
                   PerformBy: ' ',
-                  Odom: ' ',
+                  ODOM: ' ',
                   CCAK: ' ',
                   CCBHI: ' ',
                   SGWS: ' ',
@@ -219,11 +219,11 @@ class CreateTask extends Component {
                 </div>
                 <label style={{fontSize:"20px"}}>Companies:</label>
                 <div className="form-group">
-                    <label>Odom: </label>
+                    <label>ODOM: </label>
                     <input 
                             type="text" 
                             className="form-control"
-                            value={this.state.Odom}
+                            value={this.state.ODOM}
                             onChange={this.onChangeOdom}
                             style={{width:"650px"}}
                             />

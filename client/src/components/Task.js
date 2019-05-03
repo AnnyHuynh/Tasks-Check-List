@@ -246,7 +246,7 @@ class TaskList extends Component {
                             <th scope="col">Due Date</th>
                             <th scope="col">Task Name</th>
                             <th scope="col">Perform By</th>
-                            <th scope="col">Odom</th>
+                            <th scope="col">ODOM</th>
                             <th scope="col">CCAK</th>
                             <th scope="col">CBHI</th>
                             <th scope="col">SGWS</th>

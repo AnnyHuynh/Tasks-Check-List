@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
   render() {
+   
     return (
        <nav className="navbar navbar-expand-lg" style={{height: "80px", backgroundColor: " #ff9c6e", fontWeight: "bolder"}}>
            <img
